@@ -1,8 +1,6 @@
 <b>LET-M-READ V1.0</b>
 
-LET-M-READ is a Opensource Log file reader and Controller developed in Perl.
-With letmread you can grant privilages to supportteams and endusers to read files 
-who has basic login access to linux/unix servers, without changing the file ownership. 
+An Open Source tool to grant controlled read access to unprivileged users on unix based OS. With LET-M-READ  system admins can give read access to unprivileged users without changing the file permissions.
 
 Simply, LET-M-READ makes it possible for an Unprivilaged User to read files (i.e logs) using various system commands like 'more','tail','tail with f','less','cat'.
 
