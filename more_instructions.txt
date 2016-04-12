@@ -1,0 +1,7 @@
+
+	Enter|space  - to continue (or) to read more lines
+
+	/     	     - to search pattern in the file. For example, if you want to search for the keyword "java.lang.outOfMemoryException"
+		       type /java.lang.outOfMemoryException
+	q            - 'q' to quit 
+
