@@ -6,7 +6,7 @@ who has basic login access to linux/unix servers, without changing the file owne
 
 Simply, LET-M-READ makes it possible for an Unprivilaged User to read files (i.e logs) using various system commands like 'more','tail','tail with f','less','cat'.
 
-<b>FEATURES</b>
+<b>Features</b>
 <ul>
 <li>User Authentication</li>
 <li>Event Log capture</li>
@@ -15,20 +15,29 @@ Simply, LET-M-READ makes it possible for an Unprivilaged User to read files (i.e
 <li>Provides more options to un privilaged user for reading files</li>
 </ul>
 
-<b>HOW TO USE?</b>
+<b>Prerequisites</b>
 <ul list-style-type: lower-alpha;>
-<li>Add the User in LET-M-READ</li>
-<li>Update the Sudoers file</li>
-<li>User can test it now!</li>
+<li>LET-M-READ should be started as root user to make it eligible to serve most of the user needs</li>
+<li>While Making Sudo Entry, If you would like to restrict the user to read only certain directories and its files. Just mention the path as a Startup Parameter (Example Given below)</li>
+<li>Perl should be installed in the server </li>
+<li>The commands being used by LET-M-READ less,more,tail,cat should be installled and have proper path precedence and defined in environment variable $PATH. As LET-M-READ will invoke the commands without path (not like /usr/local/bin/more its just 'more') </li>
 </ul>
 
-<b>SOME RECOMMENDATIONS</b>
-<ul list-style-type: lower-alpha;>
-<li>LET-M-READ can be started as root user to make it eligible to serve most of the user needs</li>
-<li>While Making Sudo Entry, If you would like to restrict the user to read only certain directories and its files. Just mention the path as a Startup Parameter (Example Given below)</li>
-</ul>
+<b>Supported Opearating System</b>
+Unix based OS with Perl 5.10 and above
 
 For Instance, Let's say I have a user named "testuser" and I want to grant him an access to read files from the directory /opt/securedir using let-m-read. This is how it can be acheived.
+
+<b>How to Use?</b>
+<ul list-style-type: lower-alpha;>
+<li>Download the Zip file & Uncompress it</li>
+<li>Add the User in LET-M-READ</li>
+<li>Update the Sudoers file</li>
+<li>Ask the user to test</li>
+</ul>
+
+<b>Download</b>
+Download the Zip file from https://github.com/AKSarav/LET-M-READ and uncompress it in your desired location
 
 <b>AddUser</b>
 
@@ -60,8 +69,8 @@ Add the below line ( Please update the correct path of letmread)
 
 Here:
 
-/path/to/letemreadv1/letmread -> Fully qualified location where you have uncompressed the letmread.
-/opt/securedir 		      -> The Directory, for which you want to grant access to 'testuser'
+<i>/path/to/letemreadv1/letmread </i>-> Fully qualified location where you have uncompressed the letmread.
+<i>/opt/securedir 		      </i>-> The Directory, for which you want to grant access to 'testuser'
 
 Now you can communicate to the 'testuser', what is the command he has to execute and what is the let-m-read password he should use.
 
@@ -73,7 +82,7 @@ sudo /path/to/letemreadv1/letmread /opt/securedir
 
 That's it. Now the user can enjoy reading the file with many commands like more,tail,less etc... and as the Infrastrcuture Owner you no need to worry about changing the file permissions (or) ownership.
 
-Note*: I presume. you have all the commands like less,more,tail,cat installled and have proper path precedence and defined environment variable $PATH. As LET-M-READ will invoke the commands without path (not like /usr/local/bin/more its just 'more')
+
 
 <b>SNAPSHOTS</b>
 
@@ -183,10 +192,4 @@ mwi@mwi-virtual-machine /opt/sara/perlscripts/letmread/gitrepo $ cat letmread.lo
  [Apr 12 15:43:18:18]	'sara' Reading '/opt/sara/perlscripts/letmread/gitrepo/adduser.pl' with command 't'
 </pre>
 
-
-
-For Additional Queries please write to us at admin@mwinventory.in
-
-
-
-
+Please contact me in case of any queries.
