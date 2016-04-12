@@ -1,0 +1,77 @@
+#!/usr/bin/perl
+#
+# Author: Sara@mwinventory.in
+# Date: March 17 2016
+# Purpose: read the username from userinput and store it after encryption
+#   
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#    Author: Sarav 
+#    Designedby: mwinventory.in
+#    Date: Mar-15-2016
+#    Version: VER1.0
+#    Email: sara@mwinventory.in
+#
+#
+
+
+use strict;
+use warnings;
+use File::Basename;
+
+my $BASEDIR = dirname($0);
+my $saltstr = 'mwi4321@^';
+
+print "=" x 100;
+print "\n\t\t\t\tLET-M-READ|WWW.MWINVENTORY.IN\n";
+print "=" x 100;
+print "\n\tLET-M-READ is a Freeware Log file reader and Controller,\n\tWith letmread you can grant privilages to supportteams and endusers to read files \n\twho has basic login access to Server, without changing the file ownership. \n\tFor Additional Queries please write to us at admin\@mwinventory.in\n";
+print "=" x 100;
+
+print "\n\n---LET-M-READ ADDUSER NAME TOOL---\n\n";
+
+USERPROMPT:
+print "\nEnter UserName:";
+chomp(my $uid = <STDIN>);
+
+open (FILE, "$BASEDIR/.pwfile");
+while(<FILE>)
+{
+	if ( $_ =~ m/$uid\-\-/ )
+	{
+	print "UserName Already Present, Please choose another one";
+	goto USERPROMPT;
+	}
+}
+close FILE;
+PASS:
+print "\nEnter Password:";
+system "stty -echo";
+chomp(my $pwd = <STDIN>);
+system "stty echo";
+goto PASS if (! $pwd);
+
+#Encrypting
+
+my $encstr = crypt ($pwd, $saltstr);
+
+
+
+open(DATA,"+>>$BASEDIR/.pwfile") || die "Couldn't open file file.txt, $!";
+
+print DATA "$uid--$encstr\n"; 
+
+close(DATA) || die "Couldn't open file file.txt, $!";
+
+print "\nUserName $uid has been successfully added \n\n";
