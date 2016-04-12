@@ -19,8 +19,8 @@ Simply, LET-M-READ makes it possible for an Unprivilaged User to read files (i.e
 <ul list-style-type: lower-alpha;>
 <li>LET-M-READ should be started as root user to make it eligible to serve most of the user needs</li>
 <li>While Making Sudo Entry, If you would like to restrict the user to read only certain directories and its files. Just mention the path as a Startup Parameter (Example Given below)</li>
-<li>Perl should be installed in the server </li>
-<li>The commands being used by LET-M-READ less,more,tail,cat should be installled and have proper path precedence and defined in environment variable $PATH. As LET-M-READ will invoke the commands without path (not like /usr/local/bin/more its just 'more') </li>
+<li>Perl 5.10 or above must be present in the server </li>
+<li>The commands being used by LET-M-READ less,more,tail,cat must be installled and have proper path precedence and defined in environment variable $PATH. As LET-M-READ will invoke the commands without path (not like /usr/local/bin/more its just 'more') </li>
 </ul>
 
 <b>Supported Opearating System</b>
