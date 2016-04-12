@@ -1,0 +1,259 @@
+#!/usr/bin/perl
+use Switch;
+use File::Basename;
+
+my $BASEDIR = dirname($0);
+$num_args = $#ARGV + 1;
+
+my $uid;
+
+if ( -e $ARGV[0]  && $num_args == 1 )
+{
+$Dir= $ARGV[0];
+login();
+}
+else
+{
+print "\n__________________________________________________________________________  \n\n\t\t\t LET-M-READ V1.0 \t\n__________________________________________________________________________\n";
+print "\nUsage: letmread directoryname \n";
+print "\nMake sure that the Directory name is Fullyqualified and available\n";
+print "__________________________________________________________________________  \n";
+exit;
+}
+
+sub login
+{
+my $saltstr = 'mwi4321@^';
+
+print "\n__________________________________________________________________________  \n\n\t\t\t LET-M-READ V1.0 \t\n__________________________________________________________________________\n";
+
+print "Enter UserName:";
+chomp($uid = <STDIN>);
+
+print "Enter Password:";
+system "stty -echo";
+chomp(my $pwd = <STDIN>);
+system "stty echo";
+
+#Encrypting
+
+my $encstr = crypt ($pwd, $saltstr);
+
+
+
+open(DATA,"<$BASEDIR/.pwfile") || die "Couldn't open password file ";
+
+while (my $row = <DATA> )
+{
+chomp $row;
+if ( $row =~ m/$uid\-\-/ )
+{
+$ma=$';
+@mat = split (/--/, "$ma");
+}
+}
+close(DATA) || die "Couldn't close password file";
+
+if ( $encstr eq @mat[0] )
+{
+	print "\nLogin Successful";
+	return 0;
+}
+else
+{
+	print "\nLogin Failed, Please ask your SystemAdmin to map your userID in LET-M-READ";
+	print "\nsystem exitting\n";
+	exit 4;
+}
+
+}
+
+sub validateaccess($)
+{
+if (@_)
+{
+$in = @_[0];
+print "\nPerforming Access Validation on $in\n";
+
+if ( -r $in )
+{
+	print "\nINFO: Let-M-Read have proper permission to read this File (or) Directory \n ";
+}
+else
+{
+	print "\nWARNING: Let-M-Read is not having Proper Permission to read this directory (or) file \n";
+	print "Please contact your system Administrator for further actions\n";
+	print "System Exitting..\n";
+	exit 5;
+}
+}
+}
+
+sub logit
+
+{
+	my $DAT=`date +"%h %d %T:%S"`;
+        chomp $DAT;
+        my $user = @_[0];
+        my $filename = @_[1];
+        my $command = @_[2];
+        my $logfile = $BASEDIR . "/letmread.log";
+        open (my $fh,'>>',$logfile) || die "Could not open $logfile";
+        print $fh " [$DAT]\t'$user' Reading '$filename' with command '$command'\n";
+        close $fh || die "Could not close $filename";
+}
+
+validateaccess($Dir);
+print "\n";
+print "=" x 130; 
+print "\n";
+$find2=q(echo "S.No,LogFileName,ModifiedDate"|awk '{printf ("%-10s%-105s%s \n",$1, $2, $3)}' FS=\,);
+system($find2);
+print "=" x 130;
+print "\n";
+$cmd = qx(find $Dir -type f 2>/dev/null|sort|xargs ls -lrt|awk '{print \$9","\$6\$7" "\$8}'|awk '{no=1\;sum+=no\;printf ("%-10s%-105s", sum, \$1)\;printf ("%s \\n", \$2)}' FS=\,);
+print "$cmd";
+print "=" x 130;
+print "\n";
+
+
+#qx is used as the backstash ``
+@files=qx(find $Dir -type f  2>/dev/null|sort|xargs ls -lrt|awk '{print \$9}');
+@timestamp=qx(find $Dir -type f 2>/dev/null|sort|xargs ls -lrt|awk '{print \$6\$7" "\$8}');
+
+$i=0;
+foreach $file  (@files){
+
+#Creating Empty HASH
+%timestamp_of;
+$timestamp_of{$file}=$timestamp[$i++];
+}
+
+$limit = scalar @files;
+chomp $limit;
+#get the user input and verify the value.
+print "Enter the S.No of the file you want to read==> ";
+my $input = <STDIN>;
+if ( $input )
+{
+    if ( $input =~ m/[0-9]/ and $input <= $limit)
+    { print "";}
+	else
+	{
+	print "\nSelected Option is not Numeric (or) Invalid";
+	print "\nPlease Enter Valid S.No: ";
+	$input = <STDIN>;
+	if ( $input =~ m/[0-9]/ and $input <= $limit)
+	{ print ""; }
+	else
+	{
+		print "Selected Option is not Numeric (or) Invalid \n System Exitting \n" ;
+		exit;
+	}
+	}
+    chomp $input;
+    print "\nYou have selected Option:'$input'\n";
+    $input=$input-1;
+
+    $filetoread =$files[$input];
+    chomp $filetoread;
+
+    
+    validateaccess($filetoread);
+
+}
+print "\n\n___________________________________________________________________________________________________________";
+print "\n\n   How do you want to read the file you have selected [ $filetoread ] ?\n";
+print "   For Instance: If you want to use 'more' to read the file, Type 'm' -or- 'M' \n";
+print "___________________________________________________________________________________________________________";
+print "\n\n\t[m/M] 'more' \t\t[t/T] 'tail without -f' \t\t[c/C] 'cat' \n\t[l/L] 'less'\t\t[tm/TM] 'tail with more'\t\t[tf/TF] 'tail with f'\n\n" ;
+print "___________________________________________________________________________________________________________\n\n";
+print "Enter your option:";my $option = <STDIN>;
+print "\n";
+chomp $option;
+logit($uid,$filetoread,$option); 
+if ($option eq t || $option eq T || $option eq tf || $option eq tm || $option eq TF || $option eq TM )
+{
+print "\nHow many lines you want to tail";
+$line=<STDIN>;
+print "\n";
+chomp $line;
+
+if( $line =~ m/[0-9]/ ) { print " ";}
+else            { print " $line is not numeric Please try once again";
+print "\nHow many lines you want to tail";
+$line=<STDIN>;
+
+print "\n";
+chomp $line;
+if( $line =~ m/[0-9]/ ) { print " $line is numeric ";}
+else            { system(exit);}
+}
+}
+
+switch ($option) {
+case ["m","M"]
+{
+
+system "cat ./more_instructions.txt";
+
+print "\nOpening the file, Please Wait !!\n" ;
+$dat=qx(date);
+sleep 3;
+system(clear);
+print "\n-FILENAME: $files[$input]-COMMAND: more\n-DATE:$dat \n";
+sleep 2;
+system "more -d $files[$input]";
+}
+case ["t","T"]  {
+print "\nOpening the file, Please Wait !!\n" ;
+$dat=qx(date);
+sleep 3;
+system(clear);
+print "\n-FILENAME: $files[$input]-COMMAND: tail\n-DATE:$dat \n";
+sleep 2;
+system "tail -${line}  $files[$input]";
+}
+case ["tf","TF"]  {
+print "\nOpening the file, Please Wait !!\n" ;
+$dat=qx(date);
+sleep 3;
+system(clear);
+print "\n-FILENAME: $files[$input]-COMMAND: tail -f\n-DATE:$dat \n";
+sleep 2;
+
+system "tail -${line}f  $files[$input]";
+}
+case ["tm","TM"]  {
+
+system "cat ./more_instructions.txt";
+
+print "\nOpening the file, Please Wait !!\n" ;
+$dat=qx(date);
+sleep 3;
+system(clear);
+print "\n-FILENAME: $files[$input]-COMMAND: tail filename|more\n-DATE:$dat \n";
+sleep 2;
+$file=$files[$input];
+chomp $file;
+system ("tail -${line} ${file}|more");
+}
+case ["l","L"]
+{
+
+system "cat ./more_instructions.txt";
+
+print "\nOpening the file, Please Wait !!\n" ;
+$dat=qx(date);
+sleep 3;
+system(clear);
+print "\n-FILENAME: $files[$input]-COMMAND: less\n-DATE:$dat \n";
+sleep 2;
+system "less $files[$input]";
+}
+else
+{ print "previous case not sure"; }
+  exit();
+}
+ 
+
