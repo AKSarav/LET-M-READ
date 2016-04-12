@@ -15,73 +15,8 @@ Simply, LET-M-READ makes it possible for an Unprivilaged User to read files (i.e
 <li>Provides more options to un privilaged user for reading files</li>
 </ul>
 
-<b>Prerequisites</b>
-<ul list-style-type: lower-alpha;>
-<li>LET-M-READ should be started as root user to make it eligible to serve most of the user needs</li>
-<li>While Making Sudo Entry, If you would like to restrict the user to read only certain directories and its files. Just mention the path as a Startup Parameter (Example Given below)</li>
-<li>Perl 5.10 or above must be present in the server </li>
-<li>The commands being used by LET-M-READ less,more,tail,cat must be installled and have proper path precedence and defined in environment variable $PATH. As LET-M-READ will invoke the commands without path (not like /usr/local/bin/more its just 'more') </li>
-</ul>
-
-<b>Supported Opearating System</b>
+<b>Supported Opearating System</b></br>
 Unix based OS with Perl 5.10 and above
-
-For Instance, Let's say I have a user named "testuser" and I want to grant him an access to read files from the directory /opt/securedir using let-m-read. This is how it can be acheived.
-
-<b>How to Use?</b>
-<ul list-style-type: lower-alpha;>
-<li>Download the Zip file & Uncompress it</li>
-<li>Add the User in LET-M-READ</li>
-<li>Update the Sudoers file</li>
-<li>Ask the user to test</li>
-</ul>
-
-<b>Download</b>
-Download the Zip file from https://github.com/AKSarav/LET-M-READ and uncompress it in your desired location
-
-<b>AddUser</b>
-
-LET-M-READ comes with Additional Security. So its required to setup the userid.
-
-Execute the adduser module as follows.
-
-<pre>
-./adduser
-</pre>
-
-<b>Update Sudoers File</b>
-
-As per our requirement,  we should grant read access for only /opt/securedir to 'testuser'. 
-
-Make sure the user "testuser" is present using 'id' command
-
-<pre> 
-id testuser
-</pre>
-
-First, you’ll need to use the visudo utility…
-
-<pre>sudo visudo</pre>
-
-Add the below line ( Please update the correct path of letmread)
-
-<pre>testuser ALL=(ALL) NOPASSWD: /path/to/letemreadv1/letmread /opt/securedir</pre>
-
-Here:
-
-<i>/path/to/letemreadv1/letmread </i>-> Fully qualified location where you have uncompressed the letmread.
-<i>/opt/securedir 		      </i>-> The Directory, for which you want to grant access to 'testuser'
-
-Now you can communicate to the 'testuser', what is the command he has to execute and what is the let-m-read password he should use.
-
-<b>Invoking LET-M-READ (by testuser)</b>
-
-<pre> 
-sudo /path/to/letemreadv1/letmread /opt/securedir
-</pre>
-
-That's it. Now the user can enjoy reading the file with many commands like more,tail,less etc... and as the Infrastrcuture Owner you no need to worry about changing the file permissions (or) ownership.
-
 
 
 <b>SNAPSHOTS</b>
@@ -192,4 +127,7 @@ mwi@mwi-virtual-machine /opt/sara/perlscripts/letmread/gitrepo $ cat letmread.lo
  [Apr 12 15:43:18:18]	'sara' Reading '/opt/sara/perlscripts/letmread/gitrepo/adduser.pl' with command 't'
 </pre>
 
-Please contact me in case of any queries.
+<b>Installation and Configuration</b>
+Please refer http://www.mwinventory.in/2016/04/letmread.html
+
+
