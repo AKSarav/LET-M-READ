@@ -11,7 +11,15 @@ who has basic login access to linux/unix servers, without changing the file owne
 <li>Easy UserAddition</li>
 </ul>
 
-<b>HOW IT WORKS</b>
+<b>HOW TO USE?</b>
+<ul list-style-type: lower-alpha;>
+<li>Add the User</li>
+<li>Invoke LET-M-READ with Fully Qualified Directory Name</li>
+
+</ul>
+
+
+<b>ADD USER</b>
 
 <pre>
 mwi@mwi-virtual-machine /opt/sara/perlscripts/letmread/gitrepo $ ./adduser.pl 
@@ -36,3 +44,7 @@ UserName sara has been successfully added
 </pre>
 
 For Additional Queries please write to us at admin@mwinventory.in
+
+
+
+
