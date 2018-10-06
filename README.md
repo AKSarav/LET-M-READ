@@ -14,7 +14,8 @@ Simply, LET-M-READ makes it possible for an Unprivilaged User to read files (i.e
 </ul>
 
 <b>Supported Opearating System</b></br>
-Unix based OS with Perl 5.10 and above
+Unix based OS with Perl 5.10 and above with Switch module.
+https://stackoverflow.com/questions/23314652/cant-locate-switch-pm
 
 
 <b>SNAPSHOTS</b>
