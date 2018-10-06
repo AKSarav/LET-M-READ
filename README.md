@@ -1,10 +1,10 @@
-<b>LET-M-READ V1.0</b>
+# LET-M-READ V1.0
 
 An Open Source tool to grant controlled read access to unprivileged users on unix based OS. With LET-M-READ  system admins can give read access to unprivileged users without changing the file permissions.
 
 Simply, LET-M-READ makes it possible for an Unprivilaged User to read files (i.e logs) using various system commands like 'more','tail','tail with f','less','cat'.
 
-<b>Features</b>
+## Features
 <ul>
 <li>User Authentication</li>
 <li>Event Log capture</li>
@@ -14,10 +14,11 @@ Simply, LET-M-READ makes it possible for an Unprivilaged User to read files (i.e
 </ul>
 
 <b>Supported Opearating System</b></br>
-Unix based OS with Perl 5.10 and above
+Unix based OS with Perl 5.10 and above with Switch module.
+https://stackoverflow.com/questions/23314652/cant-locate-switch-pm
 
 
-<b>SNAPSHOTS</b>
+## Execution Outputs
 
 <b>User Verification at Startup</b>
 
@@ -117,7 +118,7 @@ print "\nUserName $uid has been successfully added \n\n";
 </pre>
 
 
-<b>EVENT LOGGING</b>
+## EVENT LOGGING
 
 <pre>
 mwi@mwi-virtual-machine /opt/sara/perlscripts/letmread/gitrepo $ cat letmread.log 
