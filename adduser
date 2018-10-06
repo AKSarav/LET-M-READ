@@ -31,10 +31,11 @@ use warnings;
 use File::Basename;
 
 my $BASEDIR = dirname($0);
-my $saltstr = 'mwi4321@^';
+# Change the SaltString if you would like to change
+my $saltstr = "4F278CDDDF52263FE21C64C94932F2B2EC316ACECD39A7ADCC01EB2E6592A678";
 
 print "=" x 100;
-print "\n\t\t\t\tLET-M-READ|WWW.MWINVENTORY.IN\n";
+print "\n\t\t\t\tLET-M-READ V1.0\n";
 print "=" x 100;
 print "\n\tLET-M-READ is a Freeware Log file reader and Controller,\n\tWith letmread you can grant privilages to supportteams and endusers to read files \n\twho has basic login access to Server, without changing the file ownership. \n\tFor Additional Queries please write to us at admin\@mwinventory.in\n";
 print "=" x 100;

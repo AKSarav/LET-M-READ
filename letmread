@@ -44,7 +44,8 @@ exit;
 
 sub login
 {
-my $saltstr = 'mwi4321@^';
+# Change the SaltString here
+my $saltstr = '4F278CDDDF52263FE21C64C94932F2B2EC316ACECD39A7ADCC01EB2E6592A678';
 
 print "\n__________________________________________________________________________  \n\n\t\t\t LET-M-READ V1.0 \t\n__________________________________________________________________________\n";
 
@@ -132,15 +133,16 @@ $find2=q(echo "S.No,LogFileName,ModifiedDate"|awk '{printf ("%-10s%-105s%s \n",$
 system($find2);
 print "=" x 130;
 print "\n";
-$cmd = qx(find $Dir -type f 2>/dev/null|sort|xargs ls -lrt|awk '{print \$9","\$6\$7" "\$8}'|awk '{no=1\;sum+=no\;printf ("%-10s%-105s", sum, \$1)\;printf ("%s \\n", \$2)}' FS=\,);
+chomp $Dir;
+$cmd = qx[find $Dir/ -type f 2>/dev/null|sort|xargs ls -lrt|awk \'{print \$9","\$6\$7" "\$8}\'|awk \'{no=1\;sum+=no\;printf ("%-10s%-105s", sum, \$1)\;printf ("%s \\n", \$2)}\' FS=\,];
 print "$cmd";
 print "=" x 130;
 print "\n";
 
 
 #qx is used as the backstash ``
-@files=qx(find $Dir -type f  2>/dev/null|sort|xargs ls -lrt|awk '{print \$9}');
-@timestamp=qx(find $Dir -type f 2>/dev/null|sort|xargs ls -lrt|awk '{print \$6\$7" "\$8}');
+@files=qx(find $Dir/ -type f  2>/dev/null|sort|xargs ls -lrt|awk '{print \$9}');
+@timestamp=qx(find $Dir/ -type f 2>/dev/null|sort|xargs ls -lrt|awk '{print \$6\$7" "\$8}');
 
 $i=0;
 foreach $file  (@files){
