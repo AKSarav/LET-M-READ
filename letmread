@@ -218,7 +218,7 @@ switch ($option) {
 case ["m","M"]
 {
 
-system "cat ./more_instructions.txt";
+system "cat $BASEDIR/more_instructions.txt";
 
 print "\nOpening the file, Please Wait !!\n" ;
 $dat=qx(date);
@@ -249,7 +249,7 @@ system "tail -${line}f  $files[$input]";
 }
 case ["tm","TM"]  {
 
-system "cat ./more_instructions.txt";
+system "cat $BASEDIR/more_instructions.txt";
 
 print "\nOpening the file, Please Wait !!\n" ;
 $dat=qx(date);
@@ -264,7 +264,7 @@ system ("tail -${line} ${file}|more");
 case ["l","L"]
 {
 
-system "cat ./more_instructions.txt";
+system "cat $BASEDIR/more_instructions.txt";
 
 print "\nOpening the file, Please Wait !!\n" ;
 $dat=qx(date);

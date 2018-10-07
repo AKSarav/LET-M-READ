@@ -31,7 +31,7 @@ use warnings;
 use File::Basename;
 
 my $BASEDIR = dirname($0);
-# Change the SaltString if you would like to change
+# Change the SaltString here
 my $saltstr = "4F278CDDDF52263FE21C64C94932F2B2EC316ACECD39A7ADCC01EB2E6592A678";
 
 print "=" x 100;
